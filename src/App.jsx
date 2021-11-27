@@ -1,12 +1,12 @@
 import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // pages
-import UserList from './pages/user-list/';
-import AddEditUser from './pages/add-edit-user/';
+import Users from './pages/Users';
+import AddUser from './pages/AddUser';
+import EditUser from './pages/EditUser';
 // store
 import store from './store/index';
 // css
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './globals.css';
 
 const App = () => {
@@ -14,9 +14,9 @@ const App = () => {
 		<Provider store={store}>
 			<BrowserRouter>
 				<Routes>
-					<Route path="/" element={<UserList />} />
-					<Route path="/add-user" element={<AddEditUser isAddPage={true} />} />
-					<Route path="/edit-user" element={<AddEditUser />} />
+					<Route path="/" element={<Users />} />
+					<Route path="/add-user" element={<AddUser />} />
+					<Route path="/edit-user" element={<EditUser />} />
 				</Routes>
 			</BrowserRouter>
 		</Provider>
