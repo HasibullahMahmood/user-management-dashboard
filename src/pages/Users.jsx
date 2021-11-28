@@ -28,6 +28,9 @@ const useStyles = makeStyles((theme) => ({
 	cardContent: {
 		padding: `${theme.spacing(2)}px ${theme.spacing(3)}px !important`,
 	},
+	alert: {
+		marginTop: theme.spacing(2),
+	},
 }));
 
 const Users = () => {
@@ -74,7 +77,11 @@ const Users = () => {
 						<CircularProgress />
 					</div>
 				)}
-				{error && <Alert severity="error">Error: {error}</Alert>}
+				{error && (
+					<Alert severity="error" className={classes.alert}>
+						Error: {error}
+					</Alert>
+				)}
 			</Container>
 		</main>
 	);
