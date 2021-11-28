@@ -27,6 +27,22 @@ export const deleteUser = createAsyncThunk('users/deleteUser', async (userId) =>
 	return { response: response.data, userId };
 });
 
+export const fetchUserById = createAsyncThunk('users/fetchUserById', async (userId) => {
+	const response = await axios.request({
+		url: `${url}/${userId}`,
+	});
+	return response.data;
+});
+
+export const updateUser = createAsyncThunk('users/updateUser', async (user) => {
+	const response = await axios.request({
+		url: `${url}/${user.id}`,
+		method: 'patch',
+		data: user,
+	});
+	return response.data;
+});
+
 const initialState = {
 	list: [],
 	loading: false,
@@ -76,6 +92,26 @@ const slice = createSlice({
 			state.deleteLoading = false;
 			state.error = action.error.message;
 		},
+
+		// FETCH USER BY ID
+		[fetchUserById.pending]: setPending,
+		[fetchUserById.fulfilled]: (state, action) => {
+			state.loading = false;
+			state.list.push(action.payload);
+		},
+		[fetchUserById.rejected]: setRejected,
+
+		// UPDATE USER
+		[updateUser.pending]: setPending,
+		[updateUser.fulfilled]: (state, action) => {
+			const updatedUser = action.payload;
+			const index = state.list.findIndex((u) => u.id === updatedUser.id);
+			if (index !== undefined) {
+				state.list[index] = updatedUser;
+			}
+			state.loading = false;
+		},
+		[updateUser.rejected]: setRejected,
 	},
 });
 

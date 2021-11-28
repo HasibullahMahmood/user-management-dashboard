@@ -40,7 +40,7 @@ export default function UserForm(props) {
 			<Controller
 				name="name"
 				control={control}
-				defaultValue=""
+				defaultValue={props?.userData?.name || ''}
 				render={({ field }) => (
 					<TextField
 						{...field}
@@ -56,7 +56,7 @@ export default function UserForm(props) {
 			<Controller
 				name="email"
 				control={control}
-				defaultValue=""
+				defaultValue={props?.userData?.email || ''}
 				render={({ field }) => (
 					<TextField
 						{...field}

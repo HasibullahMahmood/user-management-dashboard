@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { TableBody, TableRow, TableCell, Button, makeStyles } from '@material-ui/core';
 import SweetAlert from 'react-bootstrap-sweetalert';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router';
 
 import useTable from '../hooks/useTable';
 import useSuccessAlert from '../hooks/useSuccessAlert';
@@ -50,6 +51,7 @@ export default function UsersTable({ users }) {
 	const [warnDelete, setWarnDelete] = useState({ open: false, useId: null });
 	const classes = useStyles();
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const { setOpen: setSuccessAlertOpen, SuccessAlert } = useSuccessAlert();
 	const { TblContainer, TblHead, TblPagination, recordsAfterPagingAndSorting } = useTable(users, headCells);
 
@@ -74,6 +76,10 @@ export default function UsersTable({ users }) {
 	const onSuccessAlertConfirmed = () => {
 		setSuccessAlertOpen(false);
 	};
+
+	const editBtnHandler = (userId) => {
+		navigate(`/edit-user/${userId}`);
+	};
 	return (
 		<div>
 			<TblContainer>
@@ -87,7 +93,13 @@ export default function UsersTable({ users }) {
 							<TableCell>{item?.email}</TableCell>
 							<TableCell>{item?.address?.city}</TableCell>
 							<TableCell align="center">
-								<Button variant="contained" disableElevation className={classes.editBtn} size="small">
+								<Button
+									variant="contained"
+									disableElevation
+									className={classes.editBtn}
+									size="small"
+									onClick={editBtnHandler.bind(null, item.id)}
+								>
 									Edit
 								</Button>
 							</TableCell>
