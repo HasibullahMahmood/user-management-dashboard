@@ -46,12 +46,12 @@ export default function UsersTable({ users }) {
 							<TableCell>{item?.email}</TableCell>
 							<TableCell>{item?.address?.city}</TableCell>
 							<TableCell align="center">
-								<Button variant="contained" disableElevation className={classes.editBtn}>
+								<Button variant="contained" disableElevation className={classes.editBtn} size="small">
 									Edit
 								</Button>
 							</TableCell>
 							<TableCell align="center">
-								<Button variant="contained" disableElevation className={classes.deleteBtn}>
+								<Button variant="contained" disableElevation className={classes.deleteBtn} size="small">
 									Delete
 								</Button>
 							</TableCell>
