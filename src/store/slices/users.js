@@ -2,9 +2,10 @@ import axios from 'axios';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const loadUsers = createAsyncThunk('users/loadUsers', async () => {
-	return await axios.request({
-		url: 'https://my-json-server.typicode.com/karolkproexe/jsonplaceholderdb/data',
+	const response = await axios.request({
+		url: 'http://localhost:4000/users',
 	});
+	return response.data;
 });
 
 const initialState = {
@@ -24,7 +25,7 @@ const slice = createSlice({
 		},
 		[loadUsers.fulfilled]: (state, action) => {
 			state.loading = false;
-			state.list = action.payload.users;
+			state.list = action.payload;
 		},
 		[loadUsers.rejected]: (state, action) => {
 			state.loading = false;
