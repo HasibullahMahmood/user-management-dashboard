@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
-import { Table, TableHead, TableRow, TableCell, TablePagination, TableSortLabel } from '@material-ui/core';
+import {
+	Table,
+	TableHead,
+	TableRow,
+	TableCell,
+	TablePagination,
+	TableSortLabel,
+	TableContainer,
+} from '@material-ui/core';
 
 // const useStyles = makeStyles((theme) => ({}));
 
@@ -12,7 +20,11 @@ export default function useTable(records, headCells) {
 	const [order, setOrder] = useState();
 	const [orderBy, setOrderBy] = useState();
 
-	const TblContainer = (props) => <Table size="small">{props.children}</Table>;
+	const TblContainer = (props) => (
+		<TableContainer>
+			<Table size="small">{props.children}</Table>{' '}
+		</TableContainer>
+	);
 
 	const TblHead = (props) => {
 		const handleSortRequest = (cellId) => {
