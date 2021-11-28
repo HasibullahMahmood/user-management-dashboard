@@ -8,6 +8,15 @@ export const loadUsers = createAsyncThunk('users/loadUsers', async () => {
 	return response.data;
 });
 
+export const addUser = createAsyncThunk('users/addUser', async (data) => {
+	const response = await axios.request({
+		url: 'http://localhost:4000/users',
+		method: 'post',
+		data,
+	});
+	return response.data;
+});
+
 const initialState = {
 	list: [],
 	loading: false,
@@ -19,6 +28,7 @@ const slice = createSlice({
 	initialState,
 	reducers: {},
 	extraReducers: {
+		// LOAD USER
 		[loadUsers.pending]: (state) => {
 			state.loading = true;
 			state.error = null;
@@ -28,6 +38,19 @@ const slice = createSlice({
 			state.list = action.payload;
 		},
 		[loadUsers.rejected]: (state, action) => {
+			state.loading = false;
+			state.error = action.error.message;
+		},
+		// ADD USER
+		[addUser.pending]: (state) => {
+			state.loading = true;
+			state.error = null;
+		},
+		[addUser.fulfilled]: (state, action) => {
+			state.loading = false;
+			state.list.push(action.payload);
+		},
+		[addUser.rejected]: (state, action) => {
 			state.loading = false;
 			state.error = action.error.message;
 		},

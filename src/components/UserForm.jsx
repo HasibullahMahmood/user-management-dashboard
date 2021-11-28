@@ -1,8 +1,10 @@
 import React from 'react';
-import { TextField, Button, makeStyles } from '@material-ui/core';
+import { useSelector } from 'react-redux';
+import { TextField, Button, makeStyles, CircularProgress } from '@material-ui/core';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { Alert } from '@material-ui/lab';
 
 const schema = yup.object().shape({
 	name: yup.string().required().min(3),
@@ -20,10 +22,14 @@ const useStyles = makeStyles((theme) => ({
 		justifyContent: 'flex-end',
 		gap: theme.spacing(1),
 	},
+	circularProgress: {
+		color: 'white',
+	},
 }));
 
 export default function UserForm(props) {
 	const classes = useStyles();
+	const { loading, error } = useSelector((state) => state.users);
 	const {
 		control,
 		handleSubmit,
@@ -63,12 +69,19 @@ export default function UserForm(props) {
 					/>
 				)}
 			/>
+			{error && <Alert severity="error">Error: {error}</Alert>}
 			<div className={classes.buttons}>
 				<Button variant="outlined" color="secondary" size="large" onClick={props.cancelHandler}>
 					Cancel
 				</Button>
 				<Button variant="contained" color="primary" size="large" type="submit">
-					Submit
+					{loading ? (
+						<>
+							Submitting <CircularProgress className={classes.circularProgress} size={20} />
+						</>
+					) : (
+						'Submit'
+					)}
 				</Button>
 			</div>
 		</form>
