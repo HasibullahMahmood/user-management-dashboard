@@ -68,7 +68,11 @@ const Users = () => {
 						/>
 						<Divider />
 						<CardContent className={classes.cardContent}>
-							<UsersTable users={users} />
+							{users?.length !== 0 ? (
+								<UsersTable users={users} />
+							) : (
+								<Typography align="center">No user found!</Typography>
+							)}
 						</CardContent>
 					</Card>
 				)}
