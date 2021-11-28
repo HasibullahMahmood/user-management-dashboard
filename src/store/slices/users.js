@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-const url = 'http://localhost:4000/users';
+// const url = 'http://localhost:4000/users';
+const url = 'https://u-m-d.herokuapp.com/api/users';
 
 export const loadUsers = createAsyncThunk('users/loadUsers', async () => {
 	const response = await axios.request({
